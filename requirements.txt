@@ -1,0 +1,6 @@
+langgraph
+tavily-python
+langchain_openai
+langchain 
+fastapi[standard]
+ruff
