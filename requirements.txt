@@ -1,0 +1,4 @@
+langchain_openai
+tavily
+dotenv
+langchain-community wikipedia
