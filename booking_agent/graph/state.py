@@ -1,39 +1,28 @@
-from typing import List, Literal, Optional
+from typing import Dict, List, Literal, Optional
 
 from pydantic import BaseModel
 
 
 class BookingState(BaseModel):
     trip_id: str
+    user_request: str
     source: str
     destination: str
-    booking_type: Literal[
-        "flight",
-        "hotel",
-        "train",
-        "activity",
-    ]
     constraints: dict
 
-    offers: List[dict] = []
+    booking_type: Optional[Literal["flight", "train"]] = None
     ranked_offers: List[dict] = []
 
-    user_choice: Optional[str] = None
+    selected_offer_id: Optional[str] = None
+    last_user_message: Optional[str] = None
+    last_intent: Optional[str] = None
 
+    coupons: List[dict] = []
+
+    final_confirmation: Optional[bool] = None
     status: Literal[
-        "INIT",
-        "SEARCHED",
-        "AWAITING_CONFIRMATION",
-        "CONFIRMED",
-        "FAILED",
+        "INIT", "INTENT_DETECTED", "OFFERS_READY", "AWAITING_USER", "BOOKED", "FAILED"
     ] = "INIT"
 
     error: Optional[str] = None
-
-
-class BookingDestination(BaseModel):
-    trip_id: str
-    source: str
-    booking_type: str
-    destination: str
-    constraints: dict
+    booking_result: Optional[Dict] = None
